@@ -1,0 +1,42 @@
+Vue js is a JAVASCRIPT FRAMEWORK that makes building interactive and reactive web frontends easier.
+
+Different Ways of Utilizing Vue:
+    Vue can be used to control parts of HTML pages or entire pages
+        Widget approach on a multi-page-application. (Some) pages are still rendered on and served by a backend server
+    Vue can also be used to control the entire frontend of a web application
+        Single Page Application (SPA) approach. Server only sends one html page,thereafter,Vue takes over and controls the UI
+
+
+How Vue Works :
+
+
+
+Proxy in javascript
+
+
+ref = "abcd"
+$refs 
+
+
+How vue updates a dom?
+    JS-based Virtual DOM exists only in memory
+    Updates are made to the virtual DOM first only differences are then rendered to the real DOM
+
+
+
+Vue App lifecycle:
+
+
+createApp({...})
+beforeCreate()
+Created() 
+    Compile Template
+beforeMount()
+mounted()
+    Mounted Vue Instance -> Data Changed -> bedoreUpdate() -> Updated()
+                            Instance Unmounted -> beforeUnmount() -> unmounted()
+
+
+
+
+
