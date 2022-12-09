@@ -90,6 +90,7 @@ export default {
       this.activeFilters = updatedFilters;
     },
     async loadCoaches(refresh = false) {
+      console.log("Asd")
       this.isLoading = true;
       try{
 
