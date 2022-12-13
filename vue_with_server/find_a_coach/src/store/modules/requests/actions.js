@@ -20,9 +20,9 @@ export default {
         context.commit("addRequest",newRequest)
     },
     async fetchRequests(context){
-        console.log("Asd")
+        const token = context.rootGetters.token;
         const coachId = context.rootGetters.userId;
-        const response = await fetch(`https://vue-http-demo-563be-default-rtdb.firebaseio.com/requests/${coachId}.json`);
+        const response = await fetch(`https://vue-http-demo-563be-default-rtdb.firebaseio.com/requests/${coachId}.json?auth=` + token);
         const responseData = await response.json();
         if(!response.ok){
             const error = new Error(responseData.message || "Failed to fetch requests");

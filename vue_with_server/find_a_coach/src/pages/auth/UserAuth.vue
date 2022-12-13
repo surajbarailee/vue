@@ -25,7 +25,7 @@
         </p>
         <base-button>{{ submitButtonCaption }}</base-button>
         <base-button type="button" mode="flat" @click="switchAuthMode">{{
-          switchModeButtonCaption
+            switchModeButtonCaption
         }}</base-button>
       </form>
     </base-card>
@@ -78,10 +78,12 @@ export default {
       };
       try {
         if (this.mode === "login") {
-          await this.$store.dispatch("login",actionPayload);
+          await this.$store.dispatch("login", actionPayload);
         } else {
           await this.$store.dispatch("signup", actionPayload);
         }
+        const redirectUrl = "/" + (this.$route.query.redirect || "coaches");
+        this.$router.replace(redirectUrl);
       } catch (error) {
         this.error =
           error.message || "Failed to authenticate. Please try again!";
