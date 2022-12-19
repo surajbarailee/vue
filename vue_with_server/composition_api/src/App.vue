@@ -1,53 +1,63 @@
 <template>
   <section class="container">
-    <h2>{{ userName }}</h2>
-    <h3> {{ age }}</h3>
-    <h3> {{ userObject }}</h3>
-    <h3> {{ userObject2 }}</h3>
+    <user-data :first-name="firstName" :last-name="lastName" :age="age" />
+    <button @click="setAge">Change Age</button>
     <div>
-      <input type="text" placeholder="First Name" @input="firstName" />
-      <input type="text" placeholder="Last Name" @input="lastName" />
-
+      <input type="text" placeholder="First Name" v-model="firstName" />
+      <input type="text" placeholder="Last Name" ref="lastNameInput" />
+      <button @click="setLastName">Set Last Name</button>
     </div>
   </section>
 </template>
 
 <script>
-import { ref, reactive, isReactive, toRefs, computed } from 'vue';
-
-// ref is a function that returns a reactive object that works in objects, values, etc
-// reactive is a function that returns a reactive object that works in only objects
-// isReactive is a function that returns a boolean if the object is reactive or not
-// toRefs changes the object and its values to a reactive object
+import { ref, computed, watch } from 'vue';
+import UserDataVue from './components/UserData.vue';
 export default {
+  components: {
+    UserData: UserDataVue
+  },
   setup() {
-    const userName = ref('Michael Jackson');
-    const age = ref(50);
-    const userObject = ref({ name: 'Michael Jackson', age: 50 });
-    const userObject2 = reactive({ name: 'Michael Jackson ReactiveNess', age: 50 });
+    // const uName = ref('Maximilian');
     const firstName = ref('');
     const lastName = ref('');
-    setTimeout(() => {
-      userName.value = 'Michael Jackson 2';
-      userObject.value.name = 'Michael Jackson 2';
-      userObject2.name = 'Michael Jackson 2 ReactiveNess 123123';
-    }, 3000);
-    const userRefs = toRefs(user)
-    console.log(isReactive(userObject2))
+    const lastNameInput = ref(null);
+    const uAge = ref(31);
+    // const user = reactive({
+    //   name: 'Maximilian',
+    //   age: 31,
+    // });
+
+    const uName = computed(function() {
+      return firstName.value + ' ' + lastName.value;
+    });
+
+     watch([uAge, uName], function(newValues, oldValues) {
+      console.log('Old age: ' + oldValues[0]);
+      console.log('New age: ' + newValues[0]);
+      console.log('Old name: ' + oldValues[1]);
+      console.log('New name: ' + newValues[1]);
+    });
+
     function setNewAge() {
-      age.value = 100
+      uAge.value = 33;
     }
-    function setFirstName(event) {
-      firstName.value = event.target.value
+
+    function setLastName() {
+      lastName.value = lastNameInput.value.value;
     }
-    function setLastName(event) {
-      lastName.value = event.target.value
-    }
-    const uName = computed(function () {
-      return firstName.value + ' ' + lastName.value
-    })
-    return { userName, age, userObject, userObject2, userRefs, setNewAge, setFirstName, setLastName, firstName, lastName, uName };
+
+    return {
+      userName: uName,
+      age: uAge,
+      setAge: setNewAge,
+      firstName,
+      lastName,
+      lastNameInput,
+      setLastName
+    };
   },
+  
 };
 </script>
 
