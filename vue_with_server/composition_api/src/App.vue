@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <user-data :first-name="firstName" :last-name="lastName"/>
+    <user-data :first-name="firstName" :last-name="lastName" />
     <button @click="setAge">Change Age</button>
     <div>
       <input type="text" placeholder="First Name" v-model="firstName" />
@@ -11,11 +11,22 @@
 </template>
 
 <script>
-import { ref, computed, watch } from 'vue';
+import {
+  ref,
+  computed,
+  watch,
+  provide,
+  onBeforeMount,
+  onMounted,
+  onBeforeUpdate,
+  onUpdated,
+  onBeforeUnmount,
+  onMounted,
+} from 'vue';
 import UserDataVue from './components/UserData.vue';
 export default {
   components: {
-    UserData: UserDataVue
+    UserData: UserDataVue,
   },
   setup() {
     // const uName = ref('Maximilian');
@@ -28,11 +39,13 @@ export default {
     //   age: 31,
     // });
 
-    const uName = computed(function() {
+    provide('userAge', uAge);
+
+    const uName = computed(function () {
       return firstName.value + ' ' + lastName.value;
     });
 
-     watch([uAge, uName], function(newValues, oldValues) {
+    watch([uAge, uName], function (newValues, oldValues) {
       console.log('Old age: ' + oldValues[0]);
       console.log('New age: ' + newValues[0]);
       console.log('Old name: ' + oldValues[1]);
@@ -47,6 +60,30 @@ export default {
       lastName.value = lastNameInput.value.value;
     }
 
+    onBeforeMount(function () {
+      console.log('onBeforeMount');
+    });
+
+    onMounted(function () {
+      console.log('onMounted');
+    });
+
+    onBeforeUpdate(function () {
+      console.log('onBeforeUpdate');
+    });
+
+    onUpdated(function () {
+      console.log('onUpdated');
+    });
+
+    onBeforeUnmount(function () {
+      console.log('onBeforeUnmount');
+    });
+
+    onUnmounted(function () {
+      console.log('onUnmounted');
+    });
+
     return {
       userName: uName,
       age: uAge,
@@ -54,10 +91,9 @@ export default {
       firstName,
       lastName,
       lastNameInput,
-      setLastName
+      setLastName,
     };
   },
-  
 };
 </script>
 
