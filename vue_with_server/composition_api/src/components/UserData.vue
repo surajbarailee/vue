@@ -5,22 +5,20 @@
 
 
 <script>
-import {computed} from 'vue';
+import {computed ,inject} from 'vue';
 export default {
-    props: ['firstName','lastName', 'age'],
+    props: ['firstName','lastName'],
     setup(props) {
         const userName = computed(function() {
             return props.firstName + ' ' + props.lastName;
         });
+        const age = inject("userAge")
         return {
-            userName
+            userName,
+            age
         };
-    }
-    // computed: {
-    //     userName() {
-    //         return this.firstName + ' ' + this.lastName;
-    //     }
-    // }
+    },
+    
 
 }
 </script>
